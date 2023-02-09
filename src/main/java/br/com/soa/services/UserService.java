@@ -7,6 +7,7 @@ import br.com.soa.repositories.UserRepository;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.transaction.Transactional;
+import javax.ws.rs.NotFoundException;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -21,6 +22,8 @@ public class UserService {
     }
     @Transactional
     public UserDTO saveUser(UserDTO userDTO){
+        System.out.println(userDTO.getProfile());
+
         validaUsuario(userDTO.getUsername());
         userDTO.setId(null);
         var aluno = convertToEntity(userDTO);
@@ -29,14 +32,13 @@ public class UserService {
     }
 
     @Transactional
-    public UserDTO updateUser(UserDTO userDTO){
+    public UserDTO updateUser(UserDTO userDTO, Integer id){
         validaUsuario(userDTO.getUsername());
-        userDTO.setId(null);
-        var aluno = convertToEntity(userDTO);
-        repository.persist(aluno);
-        return convertToDTO(aluno);
+        repository.findById(id).orElseThrow(()-> new NotFoundException("User not found!"));
+        var user = convertToEntity(userDTO);
+        repository.persist(user);
+        return convertToDTO(user);
     }
-
 
 
     public void validaUsuario(String usuario){
@@ -68,6 +70,8 @@ public class UserService {
         obj.setWeight(objDto.getWeight());
         obj.setHeight(objDto.getHeight());
         obj.setProfile(objDto.getProfile());
+        obj.setUpdateDate(objDto.getUpdateDate());
         return obj;
     }
+
 }

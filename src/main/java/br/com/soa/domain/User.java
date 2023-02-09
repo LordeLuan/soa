@@ -29,13 +29,6 @@ public class User {
     @UpdateTimestamp
     private LocalDateTime updateDate;
 
-    private Integer profile;
+    private Profile profile;
 
-//    public Profile getProfile() {
-//        return Profile.toEnum(this.profile);
-//    }
-//
-//    public void setProfile(Profile profile) {
-//        this.profile = profile.getCode();
-//    }
 }

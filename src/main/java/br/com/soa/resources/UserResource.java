@@ -28,4 +28,10 @@ public class UserResource {
     public Response saveUser(@RequestBody UserDTO userDTO){
         return Response.status(Response.Status.CREATED).entity(service.saveUser(userDTO)).build();
     }
+
+    @PUT
+    @Path("/{userId}")
+    public Response updateUser(@RequestBody UserDTO userDTO, @PathParam("userId") Integer userId){
+        return Response.status(Response.Status.CREATED).entity(service.updateUser(userDTO, userId)).build();
+    }
 }

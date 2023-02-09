@@ -20,13 +20,6 @@ public class UserDTO {
     private Double weight;
     private Double height;
     private LocalDateTime updateDate;
-    private Integer profile;
+    private Profile profile;
 
-//    public Profile getProfile() {
-//        return Profile.toEnum(profile);
-//    }
-//
-//    public void setProfile(Profile profile) {
-//        this.profile = profile.getCode();
-//    }
 }
