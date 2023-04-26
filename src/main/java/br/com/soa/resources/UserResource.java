@@ -5,6 +5,7 @@ import br.com.soa.services.UserService;
 import org.eclipse.microprofile.openapi.annotations.parameters.RequestBody;
 import org.eclipse.microprofile.openapi.annotations.tags.Tag;
 
+import javax.annotation.security.RolesAllowed;
 import javax.inject.Inject;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
@@ -20,6 +21,7 @@ public class UserResource {
     UserService service;
 
     @GET
+    @RolesAllowed("admin")
     public Response listAll(){
         return Response.ok(service.listAll()).build();
     }
