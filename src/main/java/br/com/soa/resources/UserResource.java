@@ -21,7 +21,7 @@ public class UserResource {
     UserService service;
 
     @GET
-    @RolesAllowed("admin")
+//    @RolesAllowed("admin")
     public Response listAll(){
         return Response.ok(service.listAll()).build();
     }

@@ -85,6 +85,11 @@
       <groupId>io.quarkus</groupId>
       <artifactId>quarkus-oidc</artifactId>
     </dependency>
+    
+    <dependency>
+        <groupId>io.quarkus</groupId>
+        <artifactId>quarkus-logging-gelf</artifactId>
+    </dependency>
 
   </dependencies>
   <build>

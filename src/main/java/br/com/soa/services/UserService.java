@@ -8,16 +8,20 @@ import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.transaction.Transactional;
 import javax.ws.rs.NotFoundException;
+
+import org.jboss.logging.Logger;
+
 import java.util.List;
 import java.util.stream.Collectors;
 
 @ApplicationScoped
 public class UserService {
 
-    @Inject
+	private static final Logger LOGGER = Logger.getLogger(UserService.class);  @Inject
     UserRepository repository;
 
     public List<UserDTO> listAll(){
+    	LOGGER.info("Listagem de usuários acionada!");
         return repository.findAll().stream().map((user)  -> convertToDTO(user)).collect(Collectors.toList());
     }
     @Transactional
