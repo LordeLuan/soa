@@ -2,6 +2,7 @@ package br.com.soa.resources;
 
 import br.com.soa.dto.UserDTO;
 import br.com.soa.services.UserService;
+import io.quarkus.security.Authenticated;
 import org.eclipse.microprofile.openapi.annotations.parameters.RequestBody;
 import org.eclipse.microprofile.openapi.annotations.tags.Tag;
 
@@ -15,6 +16,7 @@ import javax.ws.rs.core.Response;
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
 @Tag(name = "UserResource", description = "Endpoints relacionados a operações com a entidade Aluno.")
+@Authenticated
 public class UserResource {
 
     @Inject
