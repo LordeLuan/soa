@@ -16,7 +16,7 @@ import javax.ws.rs.core.Response;
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
 @Tag(name = "UserResource", description = "Endpoints relacionados a operações com a entidade Aluno.")
-@Authenticated
+//@Authenticated
 public class UserResource {
 
     @Inject
@@ -24,18 +24,40 @@ public class UserResource {
 
     @GET
 //    @RolesAllowed("admin")
-    public Response listAll(){
+    public Response listAll() {
         return Response.ok(service.listAll()).build();
     }
 
+    @GET
+    @Path("/{userId}")
+    public Response getUserById(@PathParam("userId") Integer userId) {
+        return Response.ok(service.getUserById(userId)).build();
+    }
+
     @POST
-    public Response saveUser(@RequestBody UserDTO userDTO){
-        return Response.status(Response.Status.CREATED).entity(service.saveUser(userDTO)).build();
+    public Response saveUser(@RequestBody UserDTO userDTO) {
+        try {
+            return Response.status(Response.Status.CREATED).entity(service.saveUser(userDTO)).build();
+        } catch (NotFoundException ex) {
+            return Response.status(Response.Status.BAD_REQUEST).entity(ex.getMessage()).build();
+        }
     }
 
     @PUT
     @Path("/{userId}")
-    public Response updateUser(@RequestBody UserDTO userDTO, @PathParam("userId") Integer userId){
-        return Response.status(Response.Status.CREATED).entity(service.updateUser(userDTO, userId)).build();
+    public Response updateUser(@RequestBody UserDTO userDTO, @PathParam("userId") Integer userId) {
+        try {
+            return Response.status(Response.Status.OK).entity(service.updateUser(userDTO, userId)).build();
+        } catch (NotFoundException ex) {
+            return Response.status(Response.Status.BAD_REQUEST).entity(ex.getMessage()).build();
+        }
+
+    }
+
+    @DELETE
+    @Path("/{userId}")
+    public Response deleteUser(@PathParam("userId") Integer userId) {
+        service.deleteUser(userId);
+        return Response.status(Response.Status.NO_CONTENT).build();
     }
 }

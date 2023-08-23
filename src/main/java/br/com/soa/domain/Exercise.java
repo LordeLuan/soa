@@ -3,6 +3,7 @@ package br.com.soa.domain;
 import lombok.*;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 
 @Getter
 @Setter
@@ -10,20 +11,20 @@ import javax.persistence.*;
 @NoArgsConstructor
 @EqualsAndHashCode
 @Entity
-@Table(name= "exercicio")
-public class Exercicio {
+@Table(name = "exercise")
+public class Exercise {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-
-    private String nome;
-
-    private Integer repeticao;
+    @NotNull(message = "Name not be null!")
+    private String name;
 
     private Integer serie;
 
-    private Integer tempo;
+    private Integer repetitionSerie;
 
-    private Integer peso;
+    private Integer time;
+
+    private Double weight;
 }

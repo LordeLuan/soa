@@ -1,9 +1,11 @@
 package br.com.soa.dto;
 
+import br.com.soa.domain.Exercise;
 import br.com.soa.domain.enums.Profile;
 import lombok.*;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Getter
 @Setter
@@ -21,5 +23,7 @@ public class UserDTO {
     private Double height;
     private LocalDateTime updateDate;
     private Profile profile;
+
+    private List<Exercise> exercises;
 
 }
