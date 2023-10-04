@@ -32,7 +32,7 @@ public class UserService {
     }
 
     @Transactional
-    public UserDTO saveUser(UserDTO userDTO) {
+    public UserDTO saveUser(UserDTO userDTO) throws Exception {
         validaUsuario(userDTO.getUsername());
 
         userDTO.setId(null);
@@ -42,12 +42,13 @@ public class UserService {
     }
 
     @Transactional
-    public UserDTO updateUser(UserDTO userDTO, Integer id) {
+    public UserDTO updateUser(UserDTO userDTO, Integer id) throws Exception {
         validaUsuario(userDTO.getUsername());
 
         User user = repository.findByIdOptional(id).orElseThrow(() -> new NotFoundException("User not found"));
         user = updateDataEntity(userDTO, user);
-        repository.persist(user);
+        repository.persistAndFlush(user);
+        repository.flush();
         return convertToDTO(user);
     }
 
@@ -56,10 +57,10 @@ public class UserService {
         repository.delete(user);
     }
 
-    public void validaUsuario(String usuario) {
+    public void validaUsuario(String usuario) throws Exception {
         var result = repository.findByUsuario(usuario);
         if (result.isPresent()) {
-            new Exception("Usuário já cadastrado!");
+            throw new Exception("Usuário já cadastrado!");
         }
     }
 
